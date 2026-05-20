@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cineplay — Video Player</title>
+  <link rel="stylesheet" href="video.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">CINE<span>PLAY</span></div>
+    <label class="js-upload-label upload-label">
+      + Upload Video
+      <input type="file" class="js-file-input file-input" accept="video/*" />
+    </label>
+  </header>
+
+  <main class="main">
+
+    <!-- LEFT — VIDEO PLAYER -->
+    <section class="player-section">
+
+      <!-- VIDEO WRAP -->
+      <div class="js-video-wrap video-wrap">
+        <video class="js-video video" preload="metadata" >
+          <!-- <source src="video/mp4" type="video/mp4" /> -->
+        </video>
+
+        <!-- OVERLAY — shows when paused -->
+        <div class="js-overlay video-overlay">
+          <button class="js-play-overlay  overlay-play-btn hidden">▶</button>
+        </div>
+
+        <!-- GRADIENT BOTTOM -->
+        <div class="video-gradient"></div>
+      </div>
+
+      <!-- NOW PLAYING INFO -->
+      <div class="now-playing">
+        <div class="js-now-playing  now-playing-label hidden">NOW PLAYING</div>
+        <div class="js-now-playing-title now-playing-title">Select a video to play</div>
+      </div>
+
+      <!-- CONTROLS -->
+      <div class="controls">
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-wrap">
+          <span class="js-current-time time-display">0:00</span>
+          <div class="js-progress-bar progress-bar">
+            <div class="js-progress-fill progress-fill"></div>
+            <div class="js-progress-thumb progress-thumb"></div>
+          </div>
+          <span class="js-duration time-display">0:00</span>
+        </div>
+
+        <!-- BUTTONS ROW -->
+        <div class="controls-row">
+
+          <!-- LEFT CONTROLS -->
+          <div class="controls-left">
+
+            <!-- PLAY/PAUSE -->
+            <button class="js-play-btn control-btn play-btn" title="Play/Pause">
+              <span class="js-play-icon">▶</span>
+            </button>
+
+            <!-- PREVIOUS -->
+            <button class="js-prev-btn control-btn" title="Previous">⏮</button>
+
+            <!-- NEXT -->
+            <button class="js-next-btn control-btn" title="Next">⏭</button>
+
+            <!-- MUTE -->
+            <button class="js-mute-btn control-btn" title="Mute">
+              <span class="js-mute-icon">🔊</span>
+            </button>
+
+            <!-- VOLUME -->
+            <div class="volume-wrap">
+              <input
+                type="range"
+                class="js-volume volume-slider"
+                min="0"
+                max="1"
+                step="0.01"
+                value="1"
+              />
+            </div>
+
+          </div>
+
+          <!-- RIGHT CONTROLS -->
+          <div class="controls-right">
+
+            <!-- SPEED -->
+            <select class="js-speed speed-select">
+              <option value="0.5">0.5x</option>
+              <option value="1" selected>1x</option>
+              <option value="1.5">1.5x</option>
+              <option value="2">2x</option>
+            </select>
+
+            <!-- FULLSCREEN -->
+            <button class="js-fullscreen-btn control-btn" title="Fullscreen">⛶</button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- RIGHT — PLAYLIST -->
+    <aside class="playlist-section">
+
+      <div class="playlist-header">
+        <div class="playlist-title">Playlist</div>
+        <span class="js-playlist-count playlist-count">0 videos</span>
+      </div>
+
+      <!-- PLAYLIST ITEMS -->
+      <div class="js-playlist playlist"></div>
+
+      <!-- EMPTY STATE -->
+      <div class="js-playlist-empty playlist-empty hidden">
+        <div class="empty-icon">🎬</div>
+        <div class="empty-text">No uploaded videos yet</div>
+        <div class="empty-sub">Upload a video or play from the preset list</div>
+      </div>
+
+    </aside>
+
+     <!-- ERROR CARD -->
+<div class="js-error-card error-card hidden">
+  <div class="error-card-inner">
+    <div class="error-icon">⚠️</div>
+    <div class="error-content">
+      <div class="error-title">Unsupported Format</div>
+      <div class="error-message">This video format is not supported. Please upload an MP4 file encoded with H.264 codec.</div>
+    </div>
+    <button class="js-error-close error-close">✕</button>
+  </div>
+</div>
+  </main>
+
+  <!-- <button class="js-delete-video remove-video" data-delete-id="${index}">X</button> -->
+  <script src="video.js"></script>
+</body>
+</html>
+
