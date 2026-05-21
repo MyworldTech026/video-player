@@ -54,6 +54,7 @@ uploadVideo.addEventListener('change', () => {
   videoplayList.push({ title: file.name, src: url, thumb: '' })
   console.log(videoplayList)
   renderPlayList()
+  //uploadVideo.value=''
   if (videoplayList.length === 1) {
     const urls = videoplayList[0].src
     const videoTitle = videoplayList[0].title
@@ -98,7 +99,7 @@ renderPlayList()
 playlistContainer.addEventListener('click', (e) => {
   const eachvideoCard = e.target.closest('.playlist-item')
   if(!eachvideoCard)return
-  const attachAtributes = eachvideoCard.dataset.index
+ // const attachAtributes = eachvideoCard.dataset.index
  
   const videourl = eachvideoCard.dataset.url
   const videoTitle = eachvideoCard.dataset.title
@@ -135,11 +136,17 @@ function showVideo(url, videoTitle) {
   //    videoView.oncanplay=null
   // }
 
+  
   videoView.addEventListener('canplay', () => {
+      console.log(`triggered`)
     // trigger if video is not supported
     if (videoView.videoWidth === 0 || videoView.videoHeight === 0) {
       unsupportedAlert.classList.remove('hidden')
-      videoplayList.pop()
+      setTimeout(()=>{
+      unsupportedAlert.classList.add('hidden')
+      },3000)
+    videoplayList.splice(count,1)
+    
       renderPlayList()
       nowPlaying.textContent = `NOT PLAYING`
       return
@@ -223,23 +230,10 @@ videoView.addEventListener('timeupdate', () => {
 })
 
 
-// shows currentvideo time and also allow for video loop
+// shows currentvideo time
 videoView.addEventListener('timeupdate', () => {
   const currenttime = formatTime(videoView.currentTime)
-  const duration = formatTime(videoView.duration)
   currentTime.textContent = currenttime
-
-  if (currenttime === duration) {
-    count = count + 1
-    if(count===videoplayList.length){
-      count=0
-    }
-    const video = videoplayList[count]
-    const url = video.src
-    const videoTitle = video.title
-    
-    showVideo(url, videoTitle)
-  }
 })
 
 // shows video duration
@@ -257,6 +251,7 @@ function formatTime(seconds) {
 // allows for seeking
 progressBar.addEventListener('click', (e) => {
   const rect = progressBar.getBoundingClientRect()
+  console.log(rect)
   const clickX = e.clientX - rect.left
   const percentage = clickX / rect.width
   videoView.currentTime = percentage * videoView.duration
@@ -276,26 +271,15 @@ removeunsupportedAlert.addEventListener('click', () => {
   unsupportedAlert.classList.add('hidden')
 })
 
-//  deleteVideoBtn.forEach((button)=>{
-//   button.addEventListener('click',(e)=>{
-//     const card=e.target.closest('.remove-video')
-//     if(!card)return
-//     const deleteId=Number(card.dataset.deleteId)
-//     videoplayList.splice(deleteId,1)
-//     renderPlayList()
-//   })
-//  })
-
-
-
-//  addEventListener('click',(e)=>{
-//   const card=e.target.closest('.remove-video')
-//   if(!card)return 
-//   const deleteId=Number(card.dataset.deleteId)
-//   videoplayList.splice(deleteId,1)
-//     count=count-1
-//   renderPlayList()
-
-//   console.log(videoplayList)
-// })
- 
+//plays the next video if the previous one  finish playing
+videoView.addEventListener('ended',()=>{
+    count = count + 1
+    if(count===videoplayList.length){
+      count=0
+    }
+    const video = videoplayList[count]
+    const url = video.src
+    const videoTitle = video.title
+    
+    showVideo(url, videoTitle)
+})
