@@ -52,7 +52,6 @@ uploadVideo.addEventListener('change', () => {
   const url = URL.createObjectURL(file)
 
   videoplayList.push({ title: file.name, src: url, thumb: '' })
-  console.log(videoplayList)
   renderPlayList()
   //uploadVideo.value=''
   if (videoplayList.length === 1) {
@@ -138,7 +137,6 @@ function showVideo(url, videoTitle) {
 
   
   videoView.addEventListener('canplay', () => {
-      console.log(`triggered`)
     // trigger if video is not supported
     if (videoView.videoWidth === 0 || videoView.videoHeight === 0) {
       unsupportedAlert.classList.remove('hidden')
@@ -251,7 +249,6 @@ function formatTime(seconds) {
 // allows for seeking
 progressBar.addEventListener('click', (e) => {
   const rect = progressBar.getBoundingClientRect()
-  console.log(rect)
   const clickX = e.clientX - rect.left
   const percentage = clickX / rect.width
   videoView.currentTime = percentage * videoView.duration
